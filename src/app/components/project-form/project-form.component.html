@@ -1,0 +1,70 @@
+<div class="container ">
+  <div class="d-flex  align-items-baseline style-head px-3 py-2">
+    <div>
+      <a routerLink="/">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+    </div>
+    <div *ngIf="projectId" class="tittle ml-4">
+      Edit project
+    </div>
+    <div *ngIf="!projectId" class="tittle ml-4">
+      Add Proyect
+    </div>
+  </div>
+  <div class="mt-4 px-3 py-4 style-form">
+    <form [formGroup]="form">
+      <div class="mb-3 form-group">
+        <label for="projectName" class="form-label">Project name</label>
+        <input type="text" class="form-control" id="projectName" formControlName="projectName"
+          [class.is-invalid]="this.form.get('projectName').invalid && this.form.get('projectName').touched"
+          [class.is-valid]="this.form.get('projectName').valid">
+          <div *ngIf="this.form.get('projectName').invalid && this.form.get('projectName').touched" class="invalid-feedback">
+            Este campo no puede quedar vacio.
+          </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" formControlName="description"
+        [class.is-invalid]="this.form.get('description').invalid && this.form.get('description').touched"
+          [class.is-valid]="this.form.get('description').valid">
+          <div *ngIf="this.form.get('description').invalid && this.form.get('description').touched" class="invalid-feedback">
+            Este campo no puede quedar vacio.
+          </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="projectManager" class="form-label">Project Manager</label>
+        <select class="form-control" id="projectManager" formControlName="projectManager"
+        [class.is-invalid]="this.form.get('projectManager').invalid && this.form.get('projectManager').touched"
+        [class.is-valid]="this.form.get('projectManager').valid">
+          <option value="">Select a person</option>
+          <option *ngFor="let name of projectManager" [value]="name">{{name}}</option>
+        </select>
+        <div *ngIf="this.form.get('projectManager').invalid && this.form.get('projectManager').touched" class="invalid-feedback">
+          Eliga una opcion.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="assignedTo" class="form-label">Assigned to</label>
+        <select class="form-control" id="assignedTo" formControlName="assignedTo"
+        [class.is-invalid]="this.form.get('assignedTo').invalid && this.form.get('assignedTo').touched"
+        [class.is-valid]="this.form.get('assignedTo').valid">
+          <option value="">Select a person</option>
+          <option *ngFor="let nameAssigned of assignedTo" [value]="nameAssigned">{{nameAssigned}}</option>
+        </select>
+        <div *ngIf="this.form.get('assignedTo').invalid && this.form.get('assignedTo').touched" class="invalid-feedback">
+          Eliga una opcion.
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option value="Enabled">Enabled</option>
+          <option value="Disabled">Disabled</option>
+        </select>
+      </div>
+      <button *ngIf="!projectId" [disabled]="form.invalid" class="btn btn-danger" (click)="save(form.value)">Create project</button>
+      <button *ngIf="projectId"  [disabled]="form.invalid" class="btn btn-danger" (click)="updateProject(form.value)">Update project</button>
+    </form>
+  </div>
+</div>

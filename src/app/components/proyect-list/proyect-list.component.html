@@ -1,0 +1,37 @@
+<div class="container ">
+    <div class="d-flex justify-content-between py-2  align-items-baseline background px-3">
+        <div class="tittle">My proyects</div>
+        <div>
+            <a type="button" class="btn btn-danger" routerLink="add-project"><i class="fas fa-plus"></i>Add proyect</a>
+        </div>
+    </div>
+    <div class="mt-4 mb-3">
+        <input class="form-control mb-2" type="text" placeholder="Enter project name..."  [(ngModel)]="nameProjectFilted"/>
+        <div class="card" *ngFor="let project of projects| filter:nameProjectFilted | paginate: { itemsPerPage: 5, currentPage: p  }">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{project.projectName }}</h5>
+                    <div ngbDropdown class="d-inline-block position">
+                        <div id="dropdownBasic1" ngbDropdownToggle>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div ngbDropdownMenu>
+                            <button ngbDropdownItem class="border-menu" (click)="editProject(project.id)"><i class="far fa-edit mr-2"></i>Edit</button>
+                            <button ngbDropdownItem (click)="delete(project.id)"><i
+                                    class="far fa-trash-alt mr-2"></i>Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text"><small class="text-muted">Creation date: {{project.creationDate |
+                        date:'short'}}</small></p>
+                <p class="card-text">
+                    <img src="../../../assets/images/image-profile.jpg" class="rounded-circle" alt="foto de perfil"
+                        width="35px">
+                    {{project.assignedTo}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+</div>
+
